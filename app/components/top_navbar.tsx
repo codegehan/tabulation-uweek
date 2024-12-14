@@ -31,7 +31,6 @@ export default function TopNavigation() {
   }) => {
     localStorage.setItem("userLogin", data.user_fullname)
     
-    localStorage.setItem("userFullname", data.user_fullname)
     localStorage.setItem("userCode", data.user_code)
     localStorage.setItem("userCampus", data.user_campus)
     setIsOTPModalOpen(false);

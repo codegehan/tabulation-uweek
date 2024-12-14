@@ -29,9 +29,11 @@ export default function AdminAccountPage() {
     const [accountsPerPage] = useState(10);
     const [editingAccount, setEditingAccount] = useState<Account | null>(null);
     const [campusLists, setCampusLists] = useState<CampusListProps[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchCampusLists = async () => {
+            setIsLoading(true);
             const requestBody = {
                 data: {
                     filename: String(localStorage.getItem('filename'))
@@ -71,6 +73,8 @@ export default function AdminAccountPage() {
                     } catch (error) {
                         console.error('Error parsing events:', error);
                         setCampusLists([]);
+                    } finally {
+                        setIsLoading(false);
                     }
                 }
             }
@@ -226,7 +230,16 @@ export default function AdminAccountPage() {
                         </tr>
                     </thead>
                     <tbody>
-                    {Array.isArray(currentAccounts) && currentAccounts.length > 0 ? (
+                    {isLoading ? (
+                            <tr>
+                                <td colSpan={4} className="py-3 px-4 text-center">
+                                    <div className="flex justify-center items-center">
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-900"></div>
+                                        <span className="ml-2">Loading accounts...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        ) : Array.isArray(currentAccounts) && currentAccounts.length > 0 ? (
                             currentAccounts.map((account, index) => (
                                 <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
                                     {editingAccount && editingAccount.user_email === account.user_email ? (
@@ -299,7 +312,7 @@ export default function AdminAccountPage() {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={5} className="py-3 px-4 text-center">No accounts found</td>
+                                <td colSpan={4} className="py-3 px-4 text-center">No accounts found</td>
                             </tr>
                         )}
                     </tbody>

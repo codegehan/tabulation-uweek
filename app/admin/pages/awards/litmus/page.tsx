@@ -1,7 +1,9 @@
 'use client'
 
+import LoadingIndicator from '@/app/components/loadingindicator'
 import { faCirclePlus, faMinus, faRefresh, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
@@ -35,12 +37,15 @@ interface CampusListProps {
 export default function AdminAwardsPage() {
     const [litmusLists, setLitmusLists] = useState<LitmusListProps[]>([]);
     const [campusLists, setCampusLists] = useState<CampusListProps[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const fetchLitmusLists = async () => {
+            setIsLoading(true);
             const requestBody = {
                 data: {
-                    event_type: "LITMUS"
+                    event_type: "LITMUS",
+                    filename: String(localStorage.getItem('filename'))
                 },
                 spname: 'Select_Event_By_Type'
             };
@@ -78,6 +83,8 @@ export default function AdminAwardsPage() {
                     } catch (error) {
                         console.error('Error parsing events:', error);
                         setLitmusLists([]);
+                    } finally {
+                        setIsLoading(false);
                     }
                 }
             }
@@ -108,7 +115,7 @@ export default function AdminAwardsPage() {
                 score: 0
             },
             filename: String(localStorage.getItem('filename')),
-            added_by: "Gehan",
+            added_by: String(localStorage.getItem('userLogin')),
             date_added: new Date().toISOString()
         }])
     }
@@ -182,8 +189,17 @@ export default function AdminAwardsPage() {
         setLitmussAwards([]);
     }
 
+    if (isLoading) {
+        return <LoadingIndicator />
+    }
+
     return (
-        <div className="container mx-auto p-4">
+        <motion.div 
+        initial= {{ opacity: 0 }}
+        animate= {{ opacity: 1  }}
+        exit= {{ opacity: 0 }}
+        transition={{ duration: 0.7 }}
+        className="container mx-auto p-4">
             <div>
                 <div className="mb-3 flex items-center">
                     <h2 className="text-xl font-semibold me-4">Litmuss</h2>
@@ -268,6 +284,6 @@ export default function AdminAwardsPage() {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </motion.div>
     )
 }

@@ -106,7 +106,7 @@ export default function ListOfFiles() {
                                                     } 
                                                     localStorage.setItem('filename', file.file_name);
                                                 }}
-                                                    href={`admin`}
+                                                    href={`admin/pages/events`}
                                                 >
                                                 {file.file_name}
                                                 </Link>

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faPencilAlt, faCheck, faTimes, faSearch, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import AddEventModal from "../../../components/addeventmodal";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 interface Event {
     event_name?: string;
@@ -24,8 +25,10 @@ export default function AdminEventPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [eventsPerPage] = useState(10);
     const [editingEvent, setEditingEvent] = useState<Event | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchEventsData = async () => {
+        setIsLoading(true)
         const requestBody = {
             data: {
                 filename: String(localStorage.getItem('filename'))
@@ -63,6 +66,8 @@ export default function AdminEventPage() {
                 } catch (error) {
                     console.error('Error parsing events:', error);
                     setEvents([]);
+                } finally {
+                    setIsLoading(false);
                 }
             }
         }
@@ -144,7 +149,13 @@ export default function AdminEventPage() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <motion.div 
+            className="container mx-auto px-4 py-8"
+            initial= {{ opacity: 0 }}
+            animate= {{ opacity: 1  }}
+            exit= {{ opacity: 0 }}
+            transition={{ duration: 0.7 }}
+            >
             <div className="mb-4 flex justify-between items-center">
                 <button
                     onClick={() => setIsModalOpen(true)}
@@ -177,87 +188,94 @@ export default function AdminEventPage() {
                         </tr>
                     </thead>
                     <tbody>
-                    {Array.isArray(currentEvents) && currentEvents.length > 0 ? (
-                            currentEvents.map((event, index) => (
-                                <tr key={event.event_code} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
-                                    {editingEvent && editingEvent.event_code === event.event_code ? (
-                                        // Editing mode
-                                        <>
-                                            <td className="py-3 px-4">
-                                                <input 
-                                                    type="text" 
-                                                    value={editingEvent.event_name || ''} 
-                                                    onChange={(e) => handleEditChange('event_name', e.target.value)}
-                                                    className="w-full border rounded px-2 py-1"
-                                                />
-                                            </td>
-                                            <td className="py-3 px-4 text-center">
-                                                <select  
-                                                    value={editingEvent.event_type || ''}  
-                                                    onChange={(e) => handleEditChange('event_type', e.target.value)} 
-                                                    className="w-full border rounded px-2 py-1" 
-                                                >
-                                                    <option value="">Select Event Type</option>
-                                                    <option value="SPORTS">SPORTS</option>
-                                                    <option value="LITMUS">LITMUS</option>
-                                                </select>
-                                            </td>
-                                            <td className="py-3 px-4 text-center">
-                                                <input 
-                                                    type="text" 
-                                                    value={editingEvent.event_manager || ''} 
-                                                    onChange={(e) => handleEditChange('event_manager', e.target.value)}
-                                                    className="w-full border rounded px-2 py-1"
-                                                />
-                                            </td>
-                                            <td className="py-3 px-4 text-center">
-                                                <input 
-                                                    type="text" 
-                                                    value={editingEvent.event_venue || ''} 
-                                                    onChange={(e) => handleEditChange('event_venue', e.target.value)}
-                                                    className="w-full border rounded px-2 py-1"
-                                                />
-                                            </td>
-                                            <td className="py-3 px-4 text-center">
-                                                <div className="flex justify-center space-x-2">
-                                                    <button 
-                                                        onClick={() => editingEvent && updateEvent(editingEvent)}
-                                                        className="text-green-500 hover:text-green-700"
-                                                    >
-                                                        <FontAwesomeIcon icon={faCheck} />
-                                                    </button>
-                                                    <button 
-                                                        onClick={() => setEditingEvent(null)}
-                                                        className="text-red-500 hover:text-red-700"
-                                                    >
-                                                        <FontAwesomeIcon icon={faTimes} />
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </>
-                                    ) : (
-                                        // Display mode
-                                        <>
-                                            <td className="py-3 px-4">{event.event_name || 'NA'}</td>
-                                            <td className="py-3 px-4 text-center">{event.event_type || 'NA'}</td>
-                                            <td className="py-3 px-4 text-center">{event.event_manager || 'NA'}</td>
-                                            <td className="py-3 px-4 text-center">{event.event_venue || 'NA'}</td>
-                                            <td className="py-3 px-4 text-center">
-                                                <button 
-                                                    onClick={() => setEditingEvent(event)}
-                                                    className="text-blue-500 hover:text-blue-700"
-                                                >
-                                                    <FontAwesomeIcon icon={faPencilAlt} />
-                                                </button>
-                                            </td>
-                                        </>
-                                    )}
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan={5} className="py-3 px-4 text-center">No events found</td>
+                    {isLoading ? (
+                        <tr>
+                            <td colSpan={5} className="border p-4 text-center">
+                            <div className="flex justify-center items-center">
+                                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-900"></div>
+                                <span className="ml-2">Fetching events...</span>
+                            </div>
+                            </td>
+                        </tr>
+                        ) : currentEvents.length > 0 ? (
+                        currentEvents.map((event, index) => (
+                            <tr key={event.event_code} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                            {editingEvent && editingEvent.event_code === event.event_code ? (
+                                <>
+                                <td className="py-3 px-4">
+                                    <input 
+                                    type="text" 
+                                    value={editingEvent.event_name} 
+                                    onChange={(e) => handleEditChange('event_name', e.target.value)}
+                                    className="w-full border rounded px-2 py-1"
+                                    />
+                                </td>
+                                <td className="py-3 px-4 text-center">
+                                    <select  
+                                    value={editingEvent.event_type}  
+                                    onChange={(e) => handleEditChange('event_type', e.target.value)} 
+                                    className="w-full border rounded px-2 py-1" 
+                                    >
+                                    <option value="">Select Event Type</option>
+                                    <option value="SPORTS">SPORTS</option>
+                                    <option value="LITMUS">LITMUS</option>
+                                    </select>
+                                </td>
+                                <td className="py-3 px-4 text-center">
+                                    <input 
+                                    type="text" 
+                                    value={editingEvent.event_manager} 
+                                    onChange={(e) => handleEditChange('event_manager', e.target.value)}
+                                    className="w-full border rounded px-2 py-1"
+                                    />
+                                </td>
+                                <td className="py-3 px-4 text-center">
+                                    <input 
+                                    type="text" 
+                                    value={editingEvent.event_venue} 
+                                    onChange={(e) => handleEditChange('event_venue', e.target.value)}
+                                    className="w-full border rounded px-2 py-1"
+                                    />
+                                </td>
+                                <td className="py-3 px-4 text-center">
+                                    <div className="flex justify-center space-x-2">
+                                    <button 
+                                        onClick={() => updateEvent(editingEvent)}
+                                        className="text-green-500 hover:text-green-700"
+                                    >
+                                        <FontAwesomeIcon icon={faCheck} />
+                                    </button>
+                                    <button 
+                                        onClick={() => setEditingEvent(null)}
+                                        className="text-red-500 hover:text-red-700"
+                                    >
+                                        <FontAwesomeIcon icon={faTimes} />
+                                    </button>
+                                    </div>
+                                </td>
+                                </>
+                            ) : (
+                                <>
+                                <td className="py-3 px-4">{event.event_name || 'NA'}</td>
+                                <td className="py-3 px-4 text-center">{event.event_type || 'NA'}</td>
+                                <td className="py-3 px-4 text-center">{event.event_manager || 'NA'}</td>
+                                <td className="py-3 px-4 text-center">{event.event_venue || 'NA'}</td>
+                                <td className="py-3 px-4 text-center">
+                                    <button 
+                                    onClick={() => setEditingEvent(event)}
+                                    className="text-blue-500 hover:text-blue-700"
+                                    >
+                                    <FontAwesomeIcon icon={faPencilAlt} />
+                                    </button>
+                                </td>
+                                </>
+                            )}
                             </tr>
+                        ))
+                        ) : (
+                        <tr>
+                            <td colSpan={5} className="py-3 px-4 text-center">No events found</td>
+                        </tr>
                         )}
                     </tbody>
                 </table>
@@ -302,6 +320,6 @@ export default function AdminEventPage() {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
             />
-        </div>
+        </motion.div>
     );
 }

@@ -41,7 +41,9 @@ export default function FileCard({ file_name, isClickable = false }: fileCardPro
           className='p-3'
           src="/jrmsu-logo.jpg"
           alt={` ${file_name}`}
-          layout="fill"
+          fill
+          sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority
         />
       </div>
       <div className="p-4 border-t-2">

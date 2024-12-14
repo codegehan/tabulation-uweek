@@ -14,7 +14,6 @@ interface Campus {
     added_by: string;
 }
 
-
 export default function AdminCampusPage() {
     const [campus, setCampus] = useState<Campus[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,8 +21,10 @@ export default function AdminCampusPage() {
     const [currentPage, setCurrentPage] = useState(1);
     const [campusPerPage] = useState(10);
     const [editingCampus, setEditingCampus] = useState<Campus | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const fetchCampusData = async () => {
+        setIsLoading(true);
         const requestBody = {
             data: {
                 filename: String(localStorage.getItem('filename'))
@@ -61,6 +62,8 @@ export default function AdminCampusPage() {
                 } catch (error) {
                     console.error('Error parsing campus:', error);
                     setCampus([]);
+                } finally {
+                    setIsLoading(false);
                 }
             }
         }
@@ -165,7 +168,16 @@ export default function AdminCampusPage() {
                         </tr>
                     </thead>
                     <tbody>
-                    {Array.isArray(currentCampus) && currentCampus.length > 0 ? (
+                    {isLoading ? (
+                            <tr>
+                                <td colSpan={2} className="py-3 px-4 text-center">
+                                    <div className="flex justify-center items-center">
+                                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-900"></div>
+                                        <span className="ml-2">Loading campuses...</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        ) : Array.isArray(currentCampus) && currentCampus.length > 0 ? (
                             currentCampus.map((campus, index) => (
                                 <tr key={campus.campus_code} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
                                     {editingCampus && editingCampus.campus_code === campus.campus_code ? (
@@ -214,7 +226,7 @@ export default function AdminCampusPage() {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={5} className="py-3 px-4 text-center">No campus found</td>
+                                <td colSpan={2} className="py-3 px-4 text-center">No campuses found</td>
                             </tr>
                         )}
                     </tbody>
