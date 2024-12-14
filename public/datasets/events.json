@@ -1,0 +1,209 @@
+[
+    {
+        "event_code": "019",
+        "event_name": "Litmus Test - Event A",
+        "event_type": "Litmus",
+        "event_manager": "John Doe",
+        "event_venue": "Test Lab",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "020",
+        "event_name": "Litmus Test - Event B",
+        "event_type": "Litmus",
+        "event_manager": "Jane Doe",
+        "event_venue": "Test Lab",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "021",
+        "event_name": "Litmus Test - Event C",
+        "event_type": "Litmus",
+        "event_manager": "Alex Smith",
+        "event_venue": "Test Facility",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "022",
+        "event_name": "Litmus Test - Event D",
+        "event_type": "Litmus",
+        "event_manager": "Chris Lee",
+        "event_venue": "Test Arena",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "023",
+        "event_name": "Litmus Test - Event E",
+        "event_type": "Litmus",
+        "event_manager": "Emily Taylor",
+        "event_venue": "Test Center",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "001",
+        "event_name": "Basketball - Men A",
+        "event_type": "Sports",
+        "event_manager": "Lebron James",
+        "event_venue": "Gymnasium",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "002",
+        "event_name": "Basketball - Men B",
+        "event_type": "Sports",
+        "event_manager": "Kobe Bryant",
+        "event_venue": "Court 1",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "003",
+        "event_name": "Basketball - Women",
+        "event_type": "Sports",
+        "event_manager": "Sue Bird",
+        "event_venue": "Arena",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "004",
+        "event_name": "Football - Men",
+        "event_type": "Sports",
+        "event_manager": "Cristiano Ronaldo",
+        "event_venue": "Stadium",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "005",
+        "event_name": "Football - Women",
+        "event_type": "Sports",
+        "event_manager": "Megan Rapinoe",
+        "event_venue": "Stadium",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "006",
+        "event_name": "Tennis - Men",
+        "event_type": "Sports",
+        "event_manager": "Roger Federer",
+        "event_venue": "Court 2",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "007",
+        "event_name": "Tennis - Women",
+        "event_type": "Sports",
+        "event_manager": "Serena Williams",
+        "event_venue": "Court 3",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "008",
+        "event_name": "Volleyball - Men",
+        "event_type": "Sports",
+        "event_manager": "Max Holt",
+        "event_venue": "Gymnasium",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "009",
+        "event_name": "Volleyball - Women",
+        "event_type": "Sports",
+        "event_manager": "Kerri Walsh",
+        "event_venue": "Court 4",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "010",
+        "event_name": "Track - Men",
+        "event_type": "Sports",
+        "event_manager": "Usain Bolt",
+        "event_venue": "Stadium",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "011",
+        "event_name": "Track - Women",
+        "event_type": "Sports",
+        "event_manager": "Allyson Felix",
+        "event_venue": "Track",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "012",
+        "event_name": "Basketball - Men C",
+        "event_type": "Sports",
+        "event_manager": "Shaquille O'Neal",
+        "event_venue": "Gymnasium",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "013",
+        "event_name": "Basketball - Women A",
+        "event_type": "Sports",
+        "event_manager": "Diana Taurasi",
+        "event_venue": "Court 5",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "014",
+        "event_name": "Soccer - Men",
+        "event_type": "Sports",
+        "event_manager": "Lionel Messi",
+        "event_venue": "Stadium",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "015",
+        "event_name": "Soccer - Women",
+        "event_type": "Sports",
+        "event_manager": "Alex Morgan",
+        "event_venue": "Field 1",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "016",
+        "event_name": "Golf - Men",
+        "event_type": "Sports",
+        "event_manager": "Tiger Woods",
+        "event_venue": "Course 1",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "017",
+        "event_name": "Golf - Women",
+        "event_type": "Sports",
+        "event_manager": "Annika Sörenstam",
+        "event_venue": "Course 2",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "018",
+        "event_name": "Basketball - Men D",
+        "event_type": "Sports",
+        "event_manager": "Michael Jordan",
+        "event_venue": "Court 6",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    }
+]

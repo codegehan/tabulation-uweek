@@ -1,0 +1,121 @@
+'use client';
+
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { toast } from "react-toastify";
+
+
+interface SportListProps {
+    event_code: string
+    event_name: string
+    event_manager: string
+    event_venue: string
+}
+
+
+export default function SportPage() {
+    const [sportsLists, setSportsLists] = useState<SportListProps[]>([]);
+    const fetchedRef = useRef(false);
+  useEffect(() => {
+    const fetchSportLists = async () => {
+        if (fetchedRef.current) return;
+        fetchedRef.current = true;
+
+        const requestBody = {
+            data: {
+                event_type: "SPORTS",
+                filename: String(localStorage.getItem('filename'))
+            },
+            spname: 'Select_Event_By_Type'
+        }; 
+        
+        const response = await fetch('/api', { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'application/json' }, 
+            body: JSON.stringify(requestBody)
+        });
+        const jsonData = await response.json();
+            if(jsonData.status) {
+                if(jsonData.data.result.status.toUpperCase() === "FAILED") {
+                    toast.error(jsonData.data.result.message, {
+                        position: "top-right",
+                        autoClose: 1500,
+                    });
+                } else {
+                    try {
+                        console.log(jsonData.data.result)
+                        const parsedEvents = jsonData.data.result.event_details.map((eventStr: string) => {
+                            try {
+                                return JSON.parse(eventStr);
+                            } catch (parseError) {
+                                console.error('Error parsing individual event:', parseError);
+                                return null;
+                            }
+                        }).filter((event: null) => event !== null);
+    
+                        if (Array.isArray(parsedEvents)) {
+                            setSportsLists(parsedEvents);
+                        } else {
+                            console.error('Event list is not an array:', parsedEvents);
+                            setSportsLists([]); 
+                        }
+                    } catch (error) {
+                        console.error('Error parsing events:', error);
+                        setSportsLists([]);
+                    }
+                }
+            }
+    };
+
+    fetchSportLists();
+  }, []);
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+            <motion.h1
+                className="text-2xl text-blue-800 font-bold mb-8 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.5 }}>
+                SPORT EVENTS
+            </motion.h1>
+            <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
+                <motion.div 
+                    className="w-full"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                >
+                <div className="overflow-x-auto">
+                    <table className="min-w-full shadow-md rounded-lg overflow-hidden">
+                        <thead className="bg-blue-900 text-white">
+                            <tr>
+                            <th className="py-3 px-4 border text-left">Name</th>
+                            <th className="py-3 px-4 border text-left">Manager</th>
+                            <th className="py-3 px-4 border text-left">Venue</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {sportsLists.map((sport, index) => (
+                            <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                                <td className="py-3 px-4 border text-left underline underline-offset-1 text-blue-500">
+                                    <Link
+                                        href={`sports/${sport.event_code}`}
+                                    >
+                                    {sport.event_name}
+                                    </Link>
+                                </td>
+                                <td className="py-3 px-4 border text-left">{sport.event_manager}</td>
+                                <td className="py-3 px-4 border text-left">{sport.event_venue}</td>
+                            </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+                </motion.div>
+            </div>
+        </div>
+  );
+}

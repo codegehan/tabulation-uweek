@@ -1,0 +1,47 @@
+[
+    {
+        "event_code": "019",
+        "event_name": "Litmus Test - Event A",
+        "event_type": "Litmus",
+        "event_manager": "John Doe",
+        "event_venue": "Test Lab",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "020",
+        "event_name": "Litmus Test - Event B",
+        "event_type": "Litmus",
+        "event_manager": "Jane Doe",
+        "event_venue": "Test Lab",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "021",
+        "event_name": "Litmus Test - Event C",
+        "event_type": "Litmus",
+        "event_manager": "Alex Smith",
+        "event_venue": "Test Facility",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "022",
+        "event_name": "Litmus Test - Event D",
+        "event_type": "Litmus",
+        "event_manager": "Chris Lee",
+        "event_venue": "Test Arena",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    },
+    {
+        "event_code": "023",
+        "event_name": "Litmus Test - Event E",
+        "event_type": "Litmus",
+        "event_manager": "Emily Taylor",
+        "event_venue": "Test Center",
+        "date_added": "12/11/2024",
+        "added_by": "Gehan"
+    }
+]

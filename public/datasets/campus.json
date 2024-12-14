@@ -1,0 +1,33 @@
+[
+    {
+        "campus_code": "10101",
+        "campus_name": "Dapitan",
+        "added_by": "Gehan",
+        "date_added": "12/12/2024"
+    },
+    {
+        "campus_code": "10102",
+        "campus_name": "Dipolog",
+        "added_by": "Gehan",
+        "date_added": "12/12/2024"
+    },
+    {
+        "campus_code": "10103",
+        "campus_name": "Katipunan",
+        "added_by": "Gehan",
+        "date_added": "12/12/2024"
+    },
+    {
+        "campus_code": "10104",
+        "campus_name": "Tampilisan",
+        "added_by": "Gehan",
+        "date_added": "12/12/2024"
+    },
+    {
+        "campus_code": "10105",
+        "campus_name": "Siocon",
+        "added_by": "Gehan",
+        "date_added": "12/12/2024"
+    }
+    
+]
