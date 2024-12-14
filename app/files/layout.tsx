@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import SessionProvider from '../components/sessionprovider';
 import ToastProvider from '../components/toastprovider';
 
-export default function AdminLayout({
+export default function FilesLayout({
   children,
 }: {
   children: React.ReactNode
