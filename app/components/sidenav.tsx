@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -54,7 +54,7 @@ export default function SideNavigation() {
       >
         <div className="p-4 mt-16">
           <ul className="space-y-4">
-            {menuItems.map((item, index) => (
+            {menuItems.map((item) => (
               <motion.li key={item.text} variants={menuItemVariants}>
                 {!item.subItems ? (
                   <Link href={item.href ?? '#'} passHref>

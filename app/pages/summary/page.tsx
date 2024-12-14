@@ -1,23 +1,6 @@
 'use client'
 import { motion } from "framer-motion";
-import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-
-const sportsEvents = [
-  { name: "Dapitan", gold: "10", silver: "15", bronze: "36" },
-  { name: "Dipolog", gold: "20", silver: "10", bronze: "14" },
-  { name: "Katipunan", gold: "30", silver: "20", bronze: "15" },
-  { name: "Tampilisan", gold: "40", silver: "23", bronze: "20" },
-  { name: "Siocon", gold: "35", silver: "13", bronze: "22" },
-];
-
-const literaryMusicalEvents = [
-  { name: "Dapitan", score: 95 },
-  { name: "Dipolog", score: 92 },
-  { name: "Katipunan", score: 88 },
-  { name: "Tampilisan", score: 88 },
-  { name: "Siocon", score: 88 },
-];
 
 interface RankingSportProps {
     campus_code: string;
@@ -158,12 +141,12 @@ export default function TabulationYearDetails() {
             <div className="flex items-center">
                 <h1 className="me-2 text-blue-900"><strong>LIVE RESULT</strong></h1>
                 <div className='switch' 
-                    data-isOn={isOn} 
+                    data-ison={isOn} 
                     onClick={toggleSwitch}>
                     <motion.div className="handle" layout transition={spring} />
                 </div>
             </div>
-            <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
+            <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8 mt-6">
                 <motion.div 
                     className="w-full md:w-1/2"
                     initial={{ opacity: 0, x: 50 }}
@@ -200,7 +183,7 @@ export default function TabulationYearDetails() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                    <h2 className="text-2xl font-semibold mb-4 text-center">Literary Musical Events</h2>
+                    <h2 className="text-2xl font-semibold mb-4 text-center">Literary - Musical Events</h2>
                     <div className="overflow-x-auto">
                         <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
                             <thead className="bg-blue-900 text-white">

@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import AddFileModal from "../components/addfile";
-import { toast } from "react-toastify";
 
 interface FileList {
     file_name: string;

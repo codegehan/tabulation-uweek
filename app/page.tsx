@@ -81,9 +81,9 @@ export default function Home() {
               transition={{ duration: 0.5, staggerChildren: 0.1 }}
             >
               {Array.isArray(fileLists) && fileLists.length > 0 ? (
-                fileLists.map((file) => (
+                fileLists.map((file, index) => (
                   <motion.div
-                    key={file.file_name}
+                    key={index}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}

@@ -3,7 +3,7 @@
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { motion } from "framer-motion";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { useState } from "react";
 import LoginModal from "./loginmodal";
 import OTPModal from "./otpmodal";
@@ -30,7 +30,7 @@ export default function TopNavigation() {
     user_fullname: string; 
   }) => {
     localStorage.setItem("userLogin", data.user_fullname)
-
+    
     localStorage.setItem("userFullname", data.user_fullname)
     localStorage.setItem("userCode", data.user_code)
     localStorage.setItem("userCampus", data.user_campus)

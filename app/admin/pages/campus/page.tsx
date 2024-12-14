@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faPencilAlt, faCheck, faTimes, faSearch, faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faPencilAlt, faSearch, faChevronLeft, faChevronRight, faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { toast } from "react-toastify";
 import AddCampusModal from "@/app/components/addcampusmodal";
 
@@ -178,6 +178,22 @@ export default function AdminCampusPage() {
                                                     onChange={(e) => handleEditChange('campus_name', e.target.value)}
                                                     className="w-full border rounded px-2 py-1"
                                                 />
+                                            </td>
+                                            <td className="py-3 px-4 text-center">
+                                                <div className="flex justify-center space-x-2">
+                                                    <button 
+                                                        onClick={() => editingCampus && updateCampus(editingCampus)}
+                                                        className="text-green-500 hover:text-green-700"
+                                                    >
+                                                        <FontAwesomeIcon icon={faCheck} />
+                                                    </button>
+                                                    <button 
+                                                        onClick={() => setEditingCampus(null)}
+                                                        className="text-red-500 hover:text-red-700"
+                                                    >
+                                                        <FontAwesomeIcon icon={faTimes} />
+                                                    </button>
+                                                </div>
                                             </td>
                                         </>
                                     ) : (

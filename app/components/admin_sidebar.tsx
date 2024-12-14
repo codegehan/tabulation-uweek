@@ -1,11 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faClipboardList, faTrophy, faCaretDown, faCaretUp, faPowerOff, faUser, faFile, faArrowLeft, faAdd, faPlusCircle, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { faClipboardList, faCaretDown, faCaretUp, faPowerOff, faUser, faFile, faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 export default function AdminSideBarNavigation() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -46,7 +46,7 @@ export default function AdminSideBarNavigation() {
         <h1 className="text-2xl font-bold">Admin</h1>
       </div>
       <ul className="space-y-4">
-        {menuItems.map((item, index) => (
+        {menuItems.map((item) => (
           <motion.li key={item.text} variants={menuItemVariants}>
             {!item.subItems ? (
               <Link 

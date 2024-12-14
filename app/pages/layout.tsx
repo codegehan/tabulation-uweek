@@ -7,25 +7,17 @@ import Footer from '../components/footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'JRMSU U-Week Tabulation',
-  description: 'Score tabulation for Univeristy Week',
-}
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <div className={inter.className}>
+        <SideNavigation />
         <ToastProvider>
-          <SideNavigation />
-            {children}
+          <main>{children}</main>
         </ToastProvider>
-        <Footer />
-      </body>
-    </html>
+    </div>
   )
 }

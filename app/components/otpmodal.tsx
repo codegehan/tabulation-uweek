@@ -9,14 +9,19 @@ import { toast } from "react-toastify";
 interface OTPModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onVerify: (otp: any) => void;
+  onVerify: (otp: {
+    user_code: string;
+    user_email: string;
+    user_campus: string;
+    user_fullname: string;
+  }) => void;
 }
 
 export default function OTPModal({ isOpen, onClose, onVerify }: OTPModalProps) {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const inputRefs = useRef<(HTMLInputElement | null)[]>(Array(6).fill(null));
   const [isLoading, setIsLoading] = useState(false);
-  const [otpCode, setOtpCode] = useState('');
+  const [isResend, setIsResend] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -47,9 +52,51 @@ export default function OTPModal({ isOpen, onClose, onVerify }: OTPModalProps) {
     onClose();
   };
 
-  // const sendOtp = async (otp: string) => {
-
-  // };
+  const sendOtp = async () => {
+    setIsResend(true);
+    const email = localStorage.getItem('userEmail');
+    const password = localStorage.getItem('userPassword');
+    const requestBody = {
+      data: {
+        user_email: email,
+        user_password: password
+      },
+      spname: 'Login_User'
+    };
+    const response = await fetch('/api', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify(requestBody)
+    });
+    const jsonData = await response.json();
+    if(jsonData.status) {
+      if(jsonData.data.result.status.toUpperCase() === "FAILED") {
+          console.log(jsonData.data.result.message)
+          toast.error(jsonData.data.result.message, { autoClose: 1500 });
+      } else {
+        const otpCode = jsonData.data.result.otp;
+        const otpRequestBody = { email: email, message: otpCode }
+        try {
+          const response = await fetch('/api/email', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(otpRequestBody),
+          });
+          const responseData = await response.json();
+          if (response.ok) {
+            toast.success('Successfully resend OTP code!', { autoClose: 1500 });
+          } else {
+            // Handle error if the email was not sent
+            console.error('Error sending OTP email:', responseData.error);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        } finally { 
+          setIsResend(false);
+        }
+      };
+    };
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -158,6 +205,27 @@ export default function OTPModal({ isOpen, onClose, onVerify }: OTPModalProps) {
                   </>
                 ) : (
                   'Verify'
+                )}
+              </motion.button>
+              <motion.button
+                whileHover={!isResend ? { scale: 1.05 } : {}}
+                whileTap={!isResend ? { scale: 0.95 } : {}}
+                disabled={isResend}
+                type="button"
+                onClick={sendOtp}
+                className={`
+                   text-blue-600 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full underline underline-offset-8 cursor-pointer text-sm
+                  ${isResend ? 'opacity-50 cursor-not-allowed' : ''}
+                  flex items-center justify-center mt-2 
+                `}
+              >
+                {isResend ? (
+                  <>
+                    <FontAwesomeIcon icon={faSpinner} className="mr-2 animate-spin" />
+                    Please wait...
+                  </>
+                ) : (
+                  'Resend OTP'
                 )}
               </motion.button>
             </form>

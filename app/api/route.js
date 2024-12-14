@@ -55,27 +55,27 @@ export async function POST(req) {
 }
 
 // Handle other HTTP methods (like GET, PUT) with a 405 Method Not Allowed response
-export async function GET(req) {
+export async function GET() {
     return new NextResponse(
         JSON.stringify({ message: 'Method not allowed', status: false, data: [] }),
         { status: 405, headers: { 'Content-Type': 'application/json' } }
     );
 }
 
-export async function PUT(req) {
+export async function PUT() {
     return new NextResponse(
         JSON.stringify({ message: 'Method not allowed', status: false, data: [] }),
         { status: 405, headers: { 'Content-Type': 'application/json' } }
     );
 }
 
-export async function DELETE(req) {
+export async function DELETE() {
     return new NextResponse(
         JSON.stringify({ message: 'Method not allowed', status: false, data: [] }),
         { status: 405, headers: { 'Content-Type': 'application/json' } }
     );
 }
-export async function PATCH(req) {
+export async function PATCH() {
     return new NextResponse(
         JSON.stringify({ message: 'Method not allowed', status: false, data: [] }),
         { status: 405, headers: { 'Content-Type': 'application/json' } }
