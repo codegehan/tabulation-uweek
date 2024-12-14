@@ -22,10 +22,7 @@ export default function AdminLogsPage(){
             
             if (jsonData.status) {
                 if (jsonData.data.result.status.toUpperCase() === "FAILED") {
-                    toast.error(jsonData.data.result.message, {
-                        position: "top-right",
-                        autoClose: 1500,
-                    });
+                    console.log(jsonData.data.result.message);
                 } else {
                     const logList = JSON.parse(jsonData.data.result.log_details);
                     setLogDetails(logList);

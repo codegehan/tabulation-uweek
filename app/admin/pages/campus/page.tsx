@@ -42,6 +42,7 @@ export default function AdminCampusPage() {
             if(jsonData.data.result.status.toUpperCase() === "FAILED") {
                 setCampus([]); 
                 console.log(jsonData.data.result.message)
+                setIsLoading(false);
             } else {
                 try {
                     const parsedCampus = jsonData.data.result.campus_list.map((campustr: string) => {

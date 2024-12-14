@@ -1,5 +1,4 @@
 'use client'
-import { AnimatePresence, motion } from 'framer-motion';
 import AdminSideBarNavigation from '../components/admin_sidebar';
 import ToastProvider from '../components/toastprovider';
 import SessionProvider from '../components/sessionprovider';

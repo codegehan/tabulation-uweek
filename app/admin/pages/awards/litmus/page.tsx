@@ -58,10 +58,7 @@ export default function AdminAwardsPage() {
             const jsonData = await response.json();
             if(jsonData.status) {
                 if(jsonData.data.result.status.toUpperCase() === "FAILED") {
-                    toast.error(jsonData.data.result.message, {
-                        position: "top-right",
-                        autoClose: 1500,
-                    });
+                    setIsLoading(false)
                 } else {
                     try {
                         console.log(jsonData.data.result)

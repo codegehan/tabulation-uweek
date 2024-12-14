@@ -46,6 +46,7 @@ export default function AdminEventPage() {
             if(jsonData.data.result.status.toUpperCase() === "FAILED") {
                 setEvents([]); 
                 console.log(jsonData.data.result.message)
+                setIsLoading(false);
             } else {
                 try {
                     const parsedEvents = jsonData.data.result.event_list.map((eventStr: string) => {

@@ -64,10 +64,8 @@ export default function AdminAwardsPage() {
             const jsonData = await response.json();
             if(jsonData.status) {
                 if(jsonData.data.result.status.toUpperCase() === "FAILED") {
-                    toast.error(jsonData.data.result.message, {
-                        position: "top-right",
-                        autoClose: 1500,
-                    });
+                    console.log(jsonData.data.result.message);
+                    setIsLoading(false)
                 } else {
                     try {
                         const parsedEvents = jsonData.data.result.event_details.map((eventStr: string) => {
@@ -114,10 +112,7 @@ export default function AdminAwardsPage() {
             const jsonData = await response.json();
             if(jsonData.status) {
                 if(jsonData.data.result.status.toUpperCase() === "FAILED") {
-                    toast.error(jsonData.data.result.message, {
-                        position: "top-right",
-                        autoClose: 1500,
-                    });
+                    console.log(jsonData.data.result.message);
                 } else {
                     try {
                         const parsedEvents = jsonData.data.result.campus_list.map((eventStr: string) => {
