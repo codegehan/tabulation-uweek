@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -11,6 +11,15 @@ export default function AdminSideBarNavigation() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
+  const [fullname, setFullname] = useState(''); 
+  const [campus, setCampus] = useState(''); 
+ 
+  useEffect(() => {
+    const fullnameData = localStorage.getItem('userLogin') || '';
+    const campusData = localStorage.getItem('userCampus') || '';
+    setFullname(fullnameData);
+    setCampus(campusData);
+  })
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
@@ -40,11 +49,13 @@ export default function AdminSideBarNavigation() {
     { icon: faPowerOff, text: 'Logout', href: '#', action: handleLogout },
   ];
 
+
+
   return (
     <nav className="bg-blue-900 text-white w-64 min-h-screen p-4 fixed left-0 top-0 overflow-y-auto">
       <div className="mb-8 border-b-2">
         <h1 className="text-3xl font-extrabold text-center pb-2 text-yellow-500">ADMIN PANEL</h1>
-        <p className='text-sm pb-3 text-center'>{localStorage.getItem('userLogin')} - {localStorage.getItem('userCampus')}</p>
+        <p className='text-sm pb-3 text-center'>{fullname} - {campus}</p>
       </div>
       <ul className="space-y-4">
         {menuItems.map((item) => (

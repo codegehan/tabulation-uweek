@@ -32,6 +32,8 @@ interface CampusListProps {
     campus_name: string
 }
 
+// const campusLists = ['Dapitan', 'Dipolog', 'Katipunan', 'Tampilisan', 'Siocon'];
+
 export default function AdminAwardsPage() {
     const [litmusLists, setLitmusLists] = useState<LitmusListProps[]>([]);
     const [campusLists, setCampusLists] = useState<CampusListProps[]>([]);
