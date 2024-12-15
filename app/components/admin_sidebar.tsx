@@ -42,8 +42,9 @@ export default function AdminSideBarNavigation() {
 
   return (
     <nav className="bg-blue-900 text-white w-64 min-h-screen p-4 fixed left-0 top-0 overflow-y-auto">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold">Admin</h1>
+      <div className="mb-8 border-b-2">
+        <h1 className="text-3xl font-extrabold text-center pb-2 text-yellow-500">ADMIN PANEL</h1>
+        <p className='text-sm pb-3 text-center'>{localStorage.getItem('userLogin')} - {localStorage.getItem('userCampus')}</p>
       </div>
       <ul className="space-y-4">
         {menuItems.map((item) => (

@@ -8,6 +8,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'JRMSU U-Week Tabulation',
   description: 'Score tabulation for Univeristy Week',
+  icons: {
+    icon: '/favicon.ico'
+  }
 }
 
 export default function RootLayout({

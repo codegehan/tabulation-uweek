@@ -2,9 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { toast } from "react-toastify";
-
+import { useEffect, useState } from "react";
 
 interface LitmusListProps {
     event_code: string
@@ -16,12 +14,10 @@ interface LitmusListProps {
 
 export default function LitmusPage() {
     const [litmusLists, setLitmusLists] = useState<LitmusListProps[]>([]);
-    const fetchedRef = useRef(false);
+    const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchLitmusLists = async () => {
-        if (fetchedRef.current) return;
-        fetchedRef.current = true;
-
+        setIsLoading(true);
         const requestBody = {
             data: {
                 event_type: "LITMUS",
@@ -38,10 +34,8 @@ export default function LitmusPage() {
         const jsonData = await response.json();
             if(jsonData.status) {
                 if(jsonData.data.result.status.toUpperCase() === "FAILED") {
-                    toast.error(jsonData.data.result.message, {
-                        position: "top-right",
-                        autoClose: 1500,
-                    });
+                    console.log(jsonData.data.result.message);
+                    setIsLoading(false);
                 } else {
                     try {
                         console.log(jsonData.data.result)
@@ -63,6 +57,8 @@ export default function LitmusPage() {
                     } catch (error) {
                         console.error('Error parsing events:', error);
                         setLitmusLists([]);
+                    } finally {
+                        setIsLoading(false);
                     }
                 }
             }
@@ -98,19 +94,34 @@ export default function LitmusPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {litmusLists.map((litmus, index) => (
-                            <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
-                                <td className="py-3 px-4 border text-left underline underline-offset-1 text-blue-500">
-                                    <Link
-                                        href={`litmus/${litmus.event_code}`}
-                                    >
-                                    {litmus.event_name}
-                                    </Link>
-                                </td>
-                                <td className="py-3 px-4 border text-left">{litmus.event_manager}</td>
-                                <td className="py-3 px-4 border text-left">{litmus.event_venue}</td>
-                            </tr>
-                            ))}
+                            {isLoading ? (
+                                <tr className='bg-gray-50'>
+                                    <td colSpan={3} className="py-3 px-4 text-center">
+                                        <div className="flex justify-center items-center">
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-900"></div>
+                                            <span className="ml-2">Loading events...</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ): litmusLists.length > 0 ? (
+                                litmusLists.map((litmus, index) => (
+                                    <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                                        <td className="py-3 px-4 border text-left underline underline-offset-1 text-blue-500">
+                                            <Link
+                                                href={`litmus/${litmus.event_code}`}
+                                            >
+                                            {litmus.event_name}
+                                            </Link>
+                                        </td>
+                                        <td className="py-3 px-4 border text-left">{litmus.event_manager}</td>
+                                        <td className="py-3 px-4 border text-left">{litmus.event_venue}</td>
+                                    </tr>
+                                ))
+                            ): (
+                                <tr className='bg-gray-50'>
+                                    <td colSpan={3} className="py-3 px-4 text-center">No literary musical events found</td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>

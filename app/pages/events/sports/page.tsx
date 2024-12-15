@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
 
 interface SportListProps {
@@ -16,12 +15,10 @@ interface SportListProps {
 
 export default function SportPage() {
     const [sportsLists, setSportsLists] = useState<SportListProps[]>([]);
-    const fetchedRef = useRef(false);
+    const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchSportLists = async () => {
-        if (fetchedRef.current) return;
-        fetchedRef.current = true;
-
+        setIsLoading(true);
         const requestBody = {
             data: {
                 event_type: "SPORTS",
@@ -38,10 +35,8 @@ export default function SportPage() {
         const jsonData = await response.json();
             if(jsonData.status) {
                 if(jsonData.data.result.status.toUpperCase() === "FAILED") {
-                    toast.error(jsonData.data.result.message, {
-                        position: "top-right",
-                        autoClose: 1500,
-                    });
+                    setIsLoading(false);
+                    console.log(jsonData.data.result.message);
                 } else {
                     try {
                         console.log(jsonData.data.result)
@@ -63,6 +58,8 @@ export default function SportPage() {
                     } catch (error) {
                         console.error('Error parsing events:', error);
                         setSportsLists([]);
+                    } finally {
+                        setIsLoading(false);
                     }
                 }
             }
@@ -98,19 +95,32 @@ export default function SportPage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {sportsLists.map((sport, index) => (
-                            <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
-                                <td className="py-3 px-4 border text-left underline underline-offset-1 text-blue-500">
-                                    <Link
-                                        href={`sports/${sport.event_code}`}
-                                    >
-                                    {sport.event_name}
-                                    </Link>
-                                </td>
-                                <td className="py-3 px-4 border text-left">{sport.event_manager}</td>
-                                <td className="py-3 px-4 border text-left">{sport.event_venue}</td>
-                            </tr>
-                            ))}
+                        {isLoading ? (
+                                <tr className='bg-gray-50'>
+                                    <td colSpan={3} className="py-3 px-4 text-center">
+                                        <div className="flex justify-center items-center">
+                                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-900"></div>
+                                            <span className="ml-2">Loading events...</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ) : sportsLists.length > 0 ? (
+                                sportsLists.map((sport, index) => (
+                                    <tr key={sport.event_code} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                                        <td className="py-3 px-4 border text-left underline underline-offset-1 text-blue-500">
+                                            <Link href={`sports/${sport.event_code}`}>
+                                                {sport.event_name}
+                                            </Link>
+                                        </td>
+                                        <td className="py-3 px-4 border text-left">{sport.event_manager}</td>
+                                        <td className="py-3 px-4 border text-left">{sport.event_venue}</td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr className='bg-gray-50'>
+                                    <td colSpan={3} className="py-3 px-4 text-center">No sports events found</td>
+                                </tr>
+                            )}
                         </tbody>
                     </table>
                 </div>

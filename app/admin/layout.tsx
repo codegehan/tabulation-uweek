@@ -10,6 +10,7 @@ export default function AdminLayout({
 }) {
   return (
     <div className="flex min-h-screen bg-gray-100">
+      <link rel="icon" href="/favicon.ico" sizes="any" />
       <SessionProvider storageKey="userLogin" redirectPath="/">
         <SessionProvider storageKey="filename" redirectPath="/files">
           <ToastProvider>

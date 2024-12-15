@@ -31,7 +31,7 @@ export async function POST(req) {
         }
         // CREATES CONNECTION
         const db = await createConnection();
-
+        
         // CALL STORE PROCEDURE NAME HERE
         const sql = `CALL ${spname}(?)`;
         const [response] = await db.query(sql, [JSON.stringify(data)]);
