@@ -41,7 +41,7 @@ export async function POST(req) {
         );
     } catch (err) {
         console.log(err);
-        return NextResponse.json({ error: err.message }, {status: 404});
+        return NextResponse.json({ message: err.message, status: false, data: [] }, {status: 404});
     } finally {
         // Ensure that the connection is closed after each request
         if (db) {
