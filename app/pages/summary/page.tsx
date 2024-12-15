@@ -158,7 +158,7 @@ export default function TabulationYearDetails() {
                         <table className="min-w-full shadow-md rounded-lg overflow-hidden">
                             <thead className="bg-blue-900 text-white">
                                 <tr>
-                                    <th className="py-3 px-4 text-left">Event Name</th>
+                                    <th className="py-3 px-4 text-left">Campus</th>
                                     <th className="py-3 px-4 text-center">Gold</th>
                                     <th className="py-3 px-4 text-center">Silver</th>
                                     <th className="py-3 px-4 text-center">Bronze</th>
@@ -188,7 +188,7 @@ export default function TabulationYearDetails() {
                         <table className="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
                             <thead className="bg-blue-900 text-white">
                                 <tr>
-                                    <th className="py-3 px-4 text-left">Event Name</th>
+                                    <th className="py-3 px-4 text-left">Campus</th>
                                     <th className="py-3 px-4 text-center">Score</th>
                                 </tr>
                             </thead>
