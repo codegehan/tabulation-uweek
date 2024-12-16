@@ -13,7 +13,9 @@ interface RankingSportProps {
     details: {
         gold: number;
         silver: number;
-        bronze: number
+        bronze: number;
+        fourth: number;
+        fifth: number;
     };
 }
 
@@ -191,6 +193,12 @@ export default function TabulationSummaryRanking() {
                                         <FontAwesomeIcon icon={faMedal} className="text-yellow-700 mr-2" />
                                         Bronze
                                     </th>
+                                    <th className="py-3 px-4 text-center text-blue-900">
+                                        4th
+                                    </th>
+                                    <th className="py-3 px-4 text-center text-blue-900">
+                                        5th
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -200,6 +208,8 @@ export default function TabulationSummaryRanking() {
                                         <td className="py-3 px-4 text-center">{event.details.gold}</td>
                                         <td className="py-3 px-4 text-center">{event.details.silver}</td>
                                         <td className="py-3 px-4 text-center">{event.details.bronze}</td>
+                                        <td className="py-3 px-4 text-center">{event.details.fourth}</td>
+                                        <td className="py-3 px-4 text-center">{event.details.fifth}</td>
                                     </tr>
                                 ))}
                             </tbody>
