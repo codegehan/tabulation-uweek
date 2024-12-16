@@ -12,7 +12,9 @@
     "@fortawesome/free-brands-svg-icons": "^6.7.1",
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "crypto-js": "^4.2.0",
     "framer-motion": "^11.13.5",
+    "lucide-react": "^0.468.0",
     "mysql2": "^3.11.5",
     "next": "15.0.4",
     "nodemailer": "^6.9.16",
@@ -22,6 +24,7 @@
     "resend": "^4.0.1"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

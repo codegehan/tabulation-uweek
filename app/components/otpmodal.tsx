@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState, useRef, useEffect } from "react";
 import { toast } from "react-toastify";
+import CryptoJS from "crypto-js";
 
 interface OTPModalProps {
   isOpen: boolean;
@@ -105,10 +106,17 @@ export default function OTPModal({ isOpen, onClose, onVerify }: OTPModalProps) {
     if (otpString.length === 6) {
         e.preventDefault();
         try {
+          const secret = "CCS-Creatives";
+          let dPassword;
+          const encryptedPass = localStorage.getItem('userPassword');
+          if (encryptedPass) {
+            const decryptBytes = CryptoJS.AES.decrypt(encryptedPass, secret);
+            dPassword = decryptBytes.toString(CryptoJS.enc.Utf8);
+          }
           const requestBody = {
             data: {
               user_email: localStorage.getItem('userEmail'),
-              user_password: localStorage.getItem('userPassword'),
+              user_password: dPassword,
               otp: otpString
             },
             spname: 'Verify_Otp'
@@ -171,7 +179,7 @@ export default function OTPModal({ isOpen, onClose, onVerify }: OTPModalProps) {
             </div>
             <p className="text-sm text-gray-600 mb-4">We have sent a code to you email. Please check before it expires.</p>
             <form onSubmit={handleSubmit}>
-              <div className="flex justify-between mb-6">
+              <div className="flex justify-between mb-6 text-gray-700">
                 {otp.map((digit, index) => (
                   <input
                     key={index}

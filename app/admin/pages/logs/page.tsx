@@ -51,7 +51,7 @@ export default function AdminLogsPage(){
 
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto">
             <table className="w-full border-collapse text-sm">
                 <thead>
                     <tr className="bg-blue-900 text-white">
@@ -71,7 +71,7 @@ export default function AdminLogsPage(){
                         </tr>
                     ) : logDetails.length === 0 ? (
                         <tr>
-                            <td colSpan={3} className="border p-4 text-center">
+                            <td colSpan={3} className="border p-4 text-center bg-gray-200">
                                 No logs recorded
                             </td>
                         </tr>

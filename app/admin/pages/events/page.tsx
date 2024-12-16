@@ -151,7 +151,7 @@ export default function AdminEventPage() {
 
     return (
         <motion.div 
-            className="container mx-auto px-4 py-8"
+            className="container mx-auto"
             initial= {{ opacity: 0 }}
             animate= {{ opacity: 1  }}
             exit= {{ opacity: 0 }}
@@ -275,7 +275,7 @@ export default function AdminEventPage() {
                         ))
                         ) : (
                         <tr>
-                            <td colSpan={5} className="py-3 px-4 text-center">No events found</td>
+                            <td colSpan={5} className="py-3 px-4 text-center bg-gray-200">No events found</td>
                         </tr>
                         )}
                     </tbody>

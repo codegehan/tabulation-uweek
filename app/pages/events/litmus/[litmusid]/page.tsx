@@ -127,7 +127,7 @@ export default function SportsDetailsPage() {
                             </tbody>
                         </table>
                     </div>
-                    <Link href="../sports">
+                    <Link href="../litmus">
                         <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 mt-4">
                             <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
                             Back

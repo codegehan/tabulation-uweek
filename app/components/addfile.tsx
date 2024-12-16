@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 interface File {
     file_name: string;
@@ -17,6 +18,7 @@ interface AddFileModalProps {
 
 export default function AddFileModal({ isOpen, onClose }: AddFileModalProps) {
     const [fileName, setFileName] = useState('');
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -47,6 +49,8 @@ export default function AddFileModal({ isOpen, onClose }: AddFileModalProps) {
                 toast.success(jsonData.data.result.message, { autoClose: 1500 });
                 onClose();
                 setFileName('');
+                localStorage.setItem('filename', fileName);
+                router.push('/admin/pages/events');
             }
         } 
     };

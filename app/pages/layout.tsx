@@ -1,7 +1,7 @@
 import './pages.css'
 import { Inter } from 'next/font/google'
-import SideNavigation from '../components/sidenav'
 import ToastProvider from '../components/toastprovider'
+import TopNavigation from '../components/clienttopnav'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -12,7 +12,7 @@ export default function RootLayout({
 }) {
   return (
     <div className={inter.className}>
-        <SideNavigation />
+        <TopNavigation />
         <ToastProvider>
           <main>{children}</main>
         </ToastProvider>

@@ -56,7 +56,7 @@ export default function FileCard({ file_name, isClickable = false }: fileCardPro
     localStorage.removeItem('filename');
     localStorage.setItem('filename', String(file_name))
     return (
-      <Link href={`/pages/summary`}>
+      <Link href={`/`}>
         {cardContent}
       </Link>
     )

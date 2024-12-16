@@ -13,13 +13,16 @@ export default function AdminSideBarNavigation() {
   const router = useRouter();
   const [fullname, setFullname] = useState(''); 
   const [campus, setCampus] = useState(''); 
+  const [filename, setFilename] = useState(''); 
  
   useEffect(() => {
     const fullnameData = localStorage.getItem('userLogin') || '';
     const campusData = localStorage.getItem('userCampus') || '';
+    const filenameData = localStorage.getItem('filename') || '';
     setFullname(fullnameData);
     setCampus(campusData);
-  })
+    setFilename(filenameData);
+  }, [])
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
 
@@ -55,7 +58,8 @@ export default function AdminSideBarNavigation() {
     <nav className="bg-blue-900 text-white w-64 min-h-screen p-4 fixed left-0 top-0 overflow-y-auto">
       <div className="mb-8 border-b-2">
         <h1 className="text-3xl font-extrabold text-center pb-2 text-yellow-500">ADMIN PANEL</h1>
-        <p className='text-sm pb-3 text-center'>{fullname} - {campus}</p>
+        <p className='text-sm pb-2'>{fullname} - {campus}</p>
+        <p className='text-xs pb-3 italic opacity-50'>File: {filename}</p>
       </div>
       <ul className="space-y-4">
         {menuItems.map((item) => (

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faEye, faEyeSlash, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { toast } from "react-toastify";
+import CryptoJS from "crypto-js";
 
 interface LoginModalProps {
   isOpen: boolean;
@@ -43,6 +44,7 @@ export default function LoginModal({ isOpen, onClose, onSubmit }: LoginModalProp
         const otpCode = jsonData.data.result.otp;
         const otpRequestBody = { email: email, message: otpCode }
         try {
+          const secret = "CCS-Creatives";
           const response = await fetch('/api/email', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -51,8 +53,9 @@ export default function LoginModal({ isOpen, onClose, onSubmit }: LoginModalProp
           const responseData = await response.json();
           if (response.ok) {
             // Successfully sent email
+            const encryptPass = CryptoJS.AES.encrypt(password, secret).toString();
             localStorage.setItem('userEmail', email);
-            localStorage.setItem('userPassword', password);
+            localStorage.setItem('userPassword', encryptPass);
             onSubmit();
             setEmail("");
             setPassword("");

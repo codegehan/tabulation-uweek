@@ -15,6 +15,7 @@ export default function ListOfFiles() {
 
     const [filesLists, setFileLists] = useState<FileList[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const fetchFilesLists = async () => {
         const requestBody = {
             data: {

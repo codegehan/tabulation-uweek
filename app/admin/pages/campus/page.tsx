@@ -139,7 +139,7 @@ export default function AdminCampusPage() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto">
             <div className="mb-4 flex justify-between items-center">
                 <button
                     onClick={() => setIsModalOpen(true)}
@@ -227,7 +227,7 @@ export default function AdminCampusPage() {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={2} className="py-3 px-4 text-center">No campuses found</td>
+                                <td colSpan={2} className="py-3 px-4 text-center bg-gray-200">No campuses found</td>
                             </tr>
                         )}
                     </tbody>

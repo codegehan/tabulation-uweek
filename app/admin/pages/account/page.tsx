@@ -195,7 +195,7 @@ export default function AdminAccountPage() {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto">
             <div className="mb-4 flex justify-between items-center">
                 <button
                     onClick={() => setIsModalOpen(true)}
@@ -309,7 +309,7 @@ export default function AdminAccountPage() {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan={4} className="py-3 px-4 text-center">No accounts found</td>
+                                <td colSpan={4} className="py-3 px-4 text-center bg-gray-200">No accounts found</td>
                             </tr>
                         )}
                     </tbody>
