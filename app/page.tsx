@@ -24,7 +24,11 @@ interface RankingLitmusProps {
     campus_name: string;
     event_type: string;
     details: {
-        score: number
+        gold: number
+        silver: number
+        bronze: number
+        fourth: number
+        fifth: number
     };
 }
 
@@ -228,17 +232,22 @@ export default function TabulationSummaryRanking() {
                             <thead className="bg-blue-100">
                                 <tr>
                                     <th className="py-3 px-4 text-left text-blue-900">Campus</th>
-                                    <th className="py-3 px-4 text-center text-blue-900">
-                                        <FontAwesomeIcon icon={faTrophy} className="text-yellow-500 mr-2" />
-                                        Score
-                                    </th>
+                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" /></th>
+                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-gray-400 mr-2" /></th>
+                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-700 mr-2" /></th>
+                                    <th className="py-3 px-4 text-center text-blue-900">4th</th>
+                                    <th className="py-3 px-4 text-center text-blue-900">5th</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {litmusEventRankingList.map((event, index) => (
                                     <tr key={index} className={index % 2 === 0 ? 'bg-blue-50' : 'bg-white'}>
                                         <td className="py-3 px-4 font-medium text-blue-900">{event.campus_name}</td>
-                                        <td className="py-3 px-4 text-center">{event.details.score}</td>
+                                        <td className="py-3 px-4 text-center">{event.details.gold}</td>
+                                        <td className="py-3 px-4 text-center">{event.details.silver}</td>
+                                        <td className="py-3 px-4 text-center">{event.details.bronze}</td>
+                                        <td className="py-3 px-4 text-center">{event.details.fourth}</td>
+                                        <td className="py-3 px-4 text-center">{event.details.fifth}</td>
                                     </tr>
                                 ))}
                             </tbody>

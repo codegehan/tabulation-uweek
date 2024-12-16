@@ -1,7 +1,7 @@
 'use client'
 
 import LoadingIndicator from '@/app/components/loadingindicator'
-import { faCirclePlus, faMinus, faRefresh, faUpload } from '@fortawesome/free-solid-svg-icons'
+import { faCirclePlus, faMedal, faMinus, faRefresh, faUpload } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { motion } from 'framer-motion'
 import { useEffect, useState } from 'react'
@@ -15,7 +15,11 @@ interface LitmusAward {
     event_name: string
     event_type: string
     details: {
-        score: number
+        gold: number
+        silver: number
+        bronze: number
+        fourth: number
+        fifth: number
     },
     filename: string
     added_by: string
@@ -91,9 +95,45 @@ export default function AdminAwardsPage() {
 
     useEffect(() => {
         const fetchCampusLists = async () => {
-            const response = await fetch('/datasets/campus.json');
-            const data = await response.json();   
-            setCampusLists(data);
+            const requestBody = {
+                data: {
+                    filename: String(localStorage.getItem('filename'))
+                },
+                spname: 'Select_Campus_All'
+            };
+            const response = await fetch('/api', { 
+                method: 'POST', 
+                headers: { 'Content-Type': 'application/json' }, 
+                body: JSON.stringify(requestBody)
+            });
+    
+            const jsonData = await response.json();
+            if(jsonData.status) {
+                if(jsonData.data.result.status.toUpperCase() === "FAILED") {
+                    console.log(jsonData.data.result.message);
+                } else {
+                    try {
+                        const parsedEvents = jsonData.data.result.campus_list.map((eventStr: string) => {
+                            try {
+                                return JSON.parse(eventStr);
+                            } catch (parseError) {
+                                console.error('Error parsing individual event:', parseError);
+                                return null;
+                            }
+                        }).filter((event: null) => event !== null);
+    
+                        if (Array.isArray(parsedEvents)) {
+                            setCampusLists(parsedEvents);
+                        } else {
+                            console.error('Event list is not an array:', parsedEvents);
+                            setCampusLists([]); 
+                        }
+                    } catch (error) {
+                        console.error('Error parsing events:', error);
+                        setCampusLists([]);
+                    }
+                }
+            }
         }
         fetchCampusLists();
     }, [])
@@ -109,7 +149,11 @@ export default function AdminAwardsPage() {
             event_name: "",
             event_type: "",
             details: {
-                score: 0
+                gold: 0,
+                silver: 0,
+                bronze: 0,
+                fourth: 0,
+                fifth: 0
             },
             filename: String(localStorage.getItem('filename')),
             added_by: String(localStorage.getItem('userLogin')),
@@ -234,7 +278,11 @@ export default function AdminAwardsPage() {
                         <tr className="bg-blue-900 text-white">
                             <th className="border p-2 text-start">Litmus Type</th>
                             <th className="border p-2 text-start">Campus</th>
-                            <th className="border p-2">Score</th>
+                            <th className="border p-2"><FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" /></th>
+                            <th className="border p-2"><FontAwesomeIcon icon={faMedal} className="text-gray-400 mr-2" /></th>
+                            <th className="border p-2"><FontAwesomeIcon icon={faMedal} className="text-yellow-700 mr-2" /></th>
+                            <th className="border p-2">4th</th>
+                            <th className="border p-2">5th</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -272,8 +320,40 @@ export default function AdminAwardsPage() {
                                     <input
                                         type="number"
                                         className="w-12 text-center p-1 border rounded"
-                                        value={award.details.score}
-                                        onChange={(e) => updateDetailsAward(index, 'score', parseInt(e.target.value) || 0)}
+                                        value={award.details.gold}
+                                        onChange={(e) => updateDetailsAward(index, 'gold', parseInt(e.target.value) || 0)}
+                                    />
+                                </td>
+                                <td className="border p-2 text-center">
+                                    <input
+                                        type="number"
+                                        className="w-12 text-center p-1 border rounded"
+                                        value={award.details.silver}
+                                        onChange={(e) => updateDetailsAward(index, 'silver', parseInt(e.target.value) || 0)}
+                                    />
+                                </td>
+                                <td className="border p-2 text-center">
+                                    <input
+                                        type="number"
+                                        className="w-12 text-center p-1 border rounded"
+                                        value={award.details.bronze}
+                                        onChange={(e) => updateDetailsAward(index, 'bronze', parseInt(e.target.value) || 0)}
+                                    />
+                                </td>
+                                <td className="border p-2 text-center">
+                                    <input
+                                        type="number"
+                                        className="w-12 text-center p-1 border rounded"
+                                        value={award.details.fourth}
+                                        onChange={(e) => updateDetailsAward(index, 'fourth', parseInt(e.target.value) || 0)}
+                                    />
+                                </td>
+                                <td className="border p-2 text-center">
+                                    <input
+                                        type="number"
+                                        className="w-12 text-center p-1 border rounded"
+                                        value={award.details.fifth}
+                                        onChange={(e) => updateDetailsAward(index, 'fifth', parseInt(e.target.value) || 0)}
                                     />
                                 </td>
                             </tr>
