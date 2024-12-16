@@ -146,7 +146,7 @@ export default function TabulationSummaryRanking() {
     return (
         <div>
             <TopNavigation />
-            <div className="container mx-auto px-4 py-8 bg-gradient-to-b from-blue-50 to-white min-h-screen">
+            <div className="container mx-auto px-4 pt-6 pb-20 bg-gradient-to-b from-blue-50 to-white min-h-screen">
             <div className="flex items-center justify-between mb-8">
                 <h1 className="text-xl font-bold text-blue-900">{year}</h1>
                 <div className="flex items-center">

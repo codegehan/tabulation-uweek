@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     <footer className="fixed bottom-0 left-0 w-full bg-blue-900 text-white py-2">
       <div className="container mx-auto px-4">
         <p className="text-center text-xs">
-        Developed by: Creatives Committee, 
+        Developed by: CCS-Creatives Committee, 
         <a className="underline underline-offset-1 hover:text-blue-500" href="https://www.facebook.com/Z3R0W0RM5" target='_blank'>
         CoderStation
         </a>
