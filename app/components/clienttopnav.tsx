@@ -73,6 +73,8 @@ export default function TopNavigation() {
                 className="h-12 w-12 mr-2"
                 src="/icon.png"
                 alt="JRMSU Logo"
+                width={300}
+                height={300}
               />
               <span className="text-md font-bold">
                 JRMSU University Week Summary Ranking

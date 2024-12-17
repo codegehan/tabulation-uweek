@@ -47,6 +47,10 @@ export default function TabulationSummaryRanking() {
         }
     }, []);
     
+    const sortByGoldMedals = (a: RankingSportProps | RankingLitmusProps, b: RankingSportProps | RankingLitmusProps) => {
+        return b.details.gold - a.details.gold;
+    };
+
     const fetchSportRanking = async () => {
         const requestBody = {
             data: {
@@ -71,6 +75,7 @@ export default function TabulationSummaryRanking() {
                     const parsedRankingLists = jsonData.data.result.ranking_lists
                         .filter((rankingStr: string) => rankingStr.trim() !== "")
                         .map((rankingStr: string) => JSON.parse(rankingStr));
+                    parsedRankingLists.sort(sortByGoldMedals);
                     setSportsEventRankingList(parsedRankingLists);
                 } catch (error) {
                     console.error('Error parsing campus:', error);
@@ -104,7 +109,8 @@ export default function TabulationSummaryRanking() {
                     const parsedRankingLists = jsonData.data.result.ranking_lists
                         .filter((rankingStr: string) => rankingStr.trim() !== "")
                         .map((rankingStr: string) => JSON.parse(rankingStr));
-                        setLitmusEventRankingList(parsedRankingLists);
+                    parsedRankingLists.sort(sortByGoldMedals);
+                    setLitmusEventRankingList(parsedRankingLists);
                 } catch (error) {
                     console.error('Error parsing campus:', error);
                     setLitmusEventRankingList([]);
@@ -116,7 +122,7 @@ export default function TabulationSummaryRanking() {
     useEffect(() => {
         fetchLitmusRanking();
         fetchSportRanking();
-    }, []);
+    }, [fetchLitmusRanking, fetchSportRanking]);
 
     const spring = {
         type: "spring",
@@ -152,7 +158,7 @@ export default function TabulationSummaryRanking() {
     return (
         <div>
             <TopNavigation />
-            <div className="container mx-auto px-4 pt-6 pb-20 bg-gradient-to-b from-blue-50 to-white min-h-screen">
+            <div className="container mx-auto px-4 pt-6 pb-20 bg-gradient-to-b from-blue-100 to-white rounded-xl">
             <div className="flex items-center justify-between mb-8">
                 <h1 className="text-xl font-bold text-blue-900">{year}</h1>
                 <div className="flex items-center">
@@ -185,7 +191,9 @@ export default function TabulationSummaryRanking() {
                             <thead className="bg-blue-100">
                                 <tr>
                                     <th className="py-3 px-4 text-left text-blue-900">Campus</th>
-                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" /></th>
+                                    <th className="py-3 px-4 text-center text-blue-900">
+                                        <FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" />
+                                    </th>
                                     <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-gray-400 mr-2" /></th>
                                     <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-700 mr-2" /></th>
                                     <th className="py-3 px-4 text-center text-blue-900">4th</th>
@@ -219,7 +227,9 @@ export default function TabulationSummaryRanking() {
                             <thead className="bg-blue-100">
                                 <tr>
                                     <th className="py-3 px-4 text-left text-blue-900">Campus</th>
-                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" /></th>
+                                    <th className="py-3 px-4 text-center text-blue-900">
+                                        <FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" />
+                                    </th>
                                     <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-gray-400 mr-2" /></th>
                                     <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-700 mr-2" /></th>
                                     <th className="py-3 px-4 text-center text-blue-900">4th</th>
