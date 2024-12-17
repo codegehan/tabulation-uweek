@@ -9,6 +9,7 @@ import { faBars, faTimes, faClipboardList, faTrophy, faCaretDown, faUser, faList
 import LoginModal from './loginmodal';
 import OTPModal from './otpmodal';
 import { ToastContainer } from 'react-toastify';
+import Image from 'next/image';
 
 export default function TopNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -67,14 +68,16 @@ export default function TopNavigation() {
         <div id="main-navigation" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
-              <Link href="/" className="flex-shrink-0 flex items-center">
-                <img 
-                  src="/icon.png" 
-                  alt="JRMSU Logo" 
-                  className="h-12 w-12 mr-2" 
-                />
-                <span className="text-md font-bold">JRMSU University Week Summary Ranking</span>
-              </Link>
+            <Link href="/" className="flex items-center">
+              <Image
+                className="h-12 w-12 mr-2"
+                src="/icon.png"
+                alt="JRMSU Logo"
+              />
+              <span className="text-md font-bold">
+                JRMSU University Week Summary Ranking
+              </span>
+            </Link>
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
