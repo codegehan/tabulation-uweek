@@ -81,7 +81,7 @@ export default function TopNavigation() {
             </div>
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
-                {menuItems.map((item, index) => (
+                {menuItems.map((item) => (
                   <div key={item.text} className={`relative group ${item.className || ''}`}>
                     {!item.subItems ? (
                       item.href ? (
