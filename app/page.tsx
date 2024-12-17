@@ -122,7 +122,7 @@ export default function TabulationSummaryRanking() {
     useEffect(() => {
         fetchLitmusRanking();
         fetchSportRanking();
-    }, [fetchLitmusRanking, fetchSportRanking]);
+    }, []);
 
     const spring = {
         type: "spring",
