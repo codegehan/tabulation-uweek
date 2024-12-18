@@ -1,11 +1,11 @@
 'use client'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faMedal } from '@fortawesome/free-solid-svg-icons';
 import { motion } from "framer-motion";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { useEffect, useState, useCallback, useRef } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 
 interface AwardDetails {
@@ -18,6 +18,8 @@ interface AwardDetails {
         gold: number
         silver: number
         bronze: number
+        fourth: number
+        fifth: number
     }
     filename: string
 }
@@ -27,11 +29,8 @@ export default function SportsDetailsPage() {
     const [eventName, setEventName] = useState<string>("");
     const params = useParams();
     const sportsid = params?.sportsid;
-    const fetchedRef = useRef(false);
     
     const fetchAwardDetails = useCallback(async () => {
-        if (fetchedRef.current) return;
-        fetchedRef.current = true;
 
         try {
             const requestBody = {
@@ -56,22 +55,25 @@ export default function SportsDetailsPage() {
                     setAwardDetails([]); 
                     console.log('Error message:', jsonData.data.result.message);
                 } else {
-                    const parsedData = jsonData.data.result.event_details.map((eventStr: string) => {
-                        try {
-                            return JSON.parse(eventStr);
-                        } catch (parseError) {
-                            console.error('Error parsing individual event:', parseError);
-                            return null;
-                        }
-                    }).filter((event: AwardDetails | null): event is AwardDetails => event !== null);
+                    // const parsedData = jsonData.data.result.event_details.map((eventStr: string) => {
+                    //     try {
+                    //         return JSON.parse(eventStr);
+                    //     } catch (parseError) {
+                    //         console.error('Error parsing individual event:', parseError);
+                    //         return null;
+                    //     }
+                    // }).filter((event: AwardDetails | null): event is AwardDetails => event !== null);
 
-                    if (Array.isArray(parsedData) && parsedData.length > 0) {
-                        setAwardDetails(parsedData);
-                        setEventName(parsedData[0].event_name || '');
-                    } else {
-                        console.error('Event list is empty or not an array:', parsedData);
-                        setAwardDetails([]); 
-                    }
+                    // if (Array.isArray(parsedData) && parsedData.length > 0) {
+                    //     setAwardDetails(parsedData);
+                    //     setEventName(parsedData[0].event_name || '');
+                    // } else {
+                    //     console.error('Event list is empty or not an array:', parsedData);
+                    //     setAwardDetails([]); 
+                    // }
+                    const eventDetails = jsonData.data.result.event_details;
+                    setAwardDetails(eventDetails);
+                    setEventName(eventDetails[0].event_name || '');
                 }
             }
         } catch (error) {
@@ -108,9 +110,11 @@ export default function SportsDetailsPage() {
                             <thead className="bg-blue-900 text-white">
                                 <tr>
                                     <th className="py-3 px-4 text-left">Campus</th>
-                                    <th className="py-3 px-4 text-center">Gold</th>
-                                    <th className="py-3 px-4 text-center">Silver</th>
-                                    <th className="py-3 px-4 text-center">Bronze</th>
+                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" /></th>
+                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-gray-400 mr-2" /></th>
+                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-700 mr-2" /></th>
+                                    <th className="py-3 px-4 text-center">4th</th>
+                                    <th className="py-3 px-4 text-center">5th</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -121,11 +125,13 @@ export default function SportsDetailsPage() {
                                             <td className="py-3 px-4 text-center">{event.details.gold}</td>
                                             <td className="py-3 px-4 text-center">{event.details.silver}</td>
                                             <td className="py-3 px-4 text-center">{event.details.bronze}</td>
+                                            <td className="py-3 px-4 text-center">{event.details.fourth}</td>
+                                            <td className="py-3 px-4 text-center">{event.details.fifth}</td>
                                         </tr>
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan={4} className="py-3 px-4 text-center text-gray-500 bg-gray-50">
+                                        <td colSpan={6} className="py-3 px-4 text-center text-gray-500 bg-gray-50">
                                             No awards details available.
                                         </td>
                                     </tr>

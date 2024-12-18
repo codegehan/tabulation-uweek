@@ -191,9 +191,7 @@ export default function TabulationSummaryRanking() {
                             <thead className="bg-blue-100">
                                 <tr>
                                     <th className="py-3 px-4 text-left text-blue-900">Campus</th>
-                                    <th className="py-3 px-4 text-center text-blue-900">
-                                        <FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" />
-                                    </th>
+                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" /></th>
                                     <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-gray-400 mr-2" /></th>
                                     <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-700 mr-2" /></th>
                                     <th className="py-3 px-4 text-center text-blue-900">4th</th>

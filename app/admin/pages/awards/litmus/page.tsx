@@ -209,6 +209,7 @@ export default function AdminAwardsPage() {
             data: formattedAwards,
             spname: 'Add_Award',
         };
+        console.log(JSON.stringify(requestBody));
         const response = await fetch('/api', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
