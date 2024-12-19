@@ -101,7 +101,7 @@ export default function CampusAwardsDetails() {
                 >
                     {campusName} CAMPUS
                 </motion.h1>
-                <div className="relative">
+                
                 <input
                     type="text"
                     placeholder="Search event"
@@ -109,7 +109,7 @@ export default function CampusAwardsDetails() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-4 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                </div>
+                
             </div>
             <div className="flex mb-4">
                 <div className="inline-flex rounded-md shadow-s" role="group">
@@ -136,7 +136,7 @@ export default function CampusAwardsDetails() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto mb-16">
                         <table className="min-w-full shadow-md rounded-lg overflow-hidden text-sm">
                             <thead className="bg-blue-900 text-white">
                                 <tr>
