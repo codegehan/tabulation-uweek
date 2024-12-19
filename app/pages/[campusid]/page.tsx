@@ -129,7 +129,7 @@ export default function CampusAwardsDetails() {
                     </button>
                 </div>
             </div>
-            <div className="mb-12 flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
+            <div className="mb-18 flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
                 <motion.div 
                     className="w-full"
                     initial={{ opacity: 0, x: 50 }}
