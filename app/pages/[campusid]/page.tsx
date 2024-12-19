@@ -103,7 +103,7 @@ export default function CampusAwardsDetails() {
                 </motion.h1>
                 
                 <input
-                    type="text"
+                    type="hidden"
                     placeholder="Search event"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -129,14 +129,14 @@ export default function CampusAwardsDetails() {
                     </button>
                 </div>
             </div>
-            <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
+            <div className="mb-12 flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
                 <motion.div 
                     className="w-full"
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                 >
-                    <div className="overflow-x-auto mb-16">
+                    <div className="overflow-x-auto">
                         <table className="min-w-full shadow-md rounded-lg overflow-hidden text-sm">
                             <thead className="bg-blue-900 text-white">
                                 <tr>
