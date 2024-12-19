@@ -202,7 +202,7 @@ export default function TabulationSummaryRanking() {
                             <tbody>
                                 {sportsEventRankingList.map((event, index) => (
                                     <tr key={index} className={index % 2 === 0 ? 'bg-blue-50' : 'bg-white'}>
-                                        <td className="py-3 px-4 font-medium text-blue-900">
+                                        <td className="py-3 px-4 font-medium text-blue-900 underline underline-offset-2 hover:font-extrabold">
                                             <Link href={`pages/${event.campus_code}`} className="hover:underline">
                                                 {event.campus_name}
                                             </Link>
@@ -242,7 +242,7 @@ export default function TabulationSummaryRanking() {
                             <tbody>
                                 {litmusEventRankingList.map((event, index) => (
                                     <tr key={index} className={index % 2 === 0 ? 'bg-blue-50' : 'bg-white'}>
-                                        <td className="py-3 px-4 font-medium text-blue-900">
+                                        <td className="py-3 px-4 font-medium text-blue-900 underline underline-offset-2 hover:font-extrabold">
                                         <Link href={`pages/${event.campus_code}`} className="hover:underline">
                                             {event.campus_name}
                                         </Link>

@@ -93,7 +93,7 @@ export default function CampusAwardsDetails() {
         <div className="container mx-auto px-4 py-8">
             <div className="flex justify-between">
                 <motion.h1
-                    className="text-2xl text-blue-800 font-bold mb-8"
+                    className="text-2xl text-blue-800 font-bold mb-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
@@ -101,7 +101,6 @@ export default function CampusAwardsDetails() {
                 >
                     {campusName} CAMPUS
                 </motion.h1>
-                
                 <input
                     type="hidden"
                     placeholder="Search event"
@@ -109,7 +108,6 @@ export default function CampusAwardsDetails() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-4 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                
             </div>
             <div className="flex mb-4">
                 <div className="inline-flex rounded-md shadow-s" role="group">
@@ -129,7 +127,7 @@ export default function CampusAwardsDetails() {
                     </button>
                 </div>
             </div>
-            <div className="mb-18 flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
+            <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0 md:space-x-8">
                 <motion.div 
                     className="w-full"
                     initial={{ opacity: 0, x: 50 }}
@@ -196,7 +194,7 @@ export default function CampusAwardsDetails() {
                 </motion.div>
             </div>
 
-            <div className="fixed bottom-0 mb-12 left-0 right-0 border-gray-200 p-4">
+            <div className="bottom-0 pb-10 left-0 right-0 border-gray-200 p-4">
                 <div className="container mx-auto flex justify-center">
                     <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                         <button
