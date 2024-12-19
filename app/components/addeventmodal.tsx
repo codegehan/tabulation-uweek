@@ -28,6 +28,24 @@ export default function AddEventModal({ isOpen, onClose }: AddEventModalProps) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if(!eventName) {
+            toast.error('Please input event name!', { autoClose: 1500 });
+            return;
+        }
+        if(!eventManager) {
+            toast.error('Please input event manager!', { autoClose: 1500 });
+            return;
+        }
+        if(!eventVenue) {
+            toast.error('Please input event venue!', { autoClose: 1500 });
+            return;
+        }
+        if(!eventType) {
+            toast.error('Please select event type!', { autoClose: 1500 });
+            return;
+        }
+
         const newEvent: Event = {
             event_code: 'EC' + Math.random().toString(36).substr(2, 6).toUpperCase(),
             event_name: eventName.toUpperCase(),

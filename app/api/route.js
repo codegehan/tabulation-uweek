@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 // Handle POST requests
 export async function POST(req) {
-    let db = null;
     try {
         // Read the raw body text first
         const body = await req.text();
@@ -33,7 +32,10 @@ export async function POST(req) {
         const db = await createConnection();
 
         if (!db) {
-            db.open();
+            return NextResponse.json(
+                { message: 'Failed to connect to the database', status: false, data: [] },
+                { status: 500 }
+            );
         }
         
         // CALL STORE PROCEDURE NAME HERE
@@ -46,16 +48,7 @@ export async function POST(req) {
     } catch (err) {
         console.log(err);
         return NextResponse.json({ message: err.message, status: false, data: [] }, {status: 404});
-    } finally {
-        // Ensure that the connection is closed after each request
-        if (db) {
-            try {
-                await db.end(); // Close the database connection
-            } catch (error) {
-                console.error('Error closing the database connection:', error);
-            }
-        }
-    }
+    } 
 }
 
 // Handle other HTTP methods (like GET, PUT) with a 405 Method Not Allowed response

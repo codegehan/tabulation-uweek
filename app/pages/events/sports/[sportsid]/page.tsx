@@ -9,20 +9,24 @@ import { useEffect, useState, useCallback } from "react";
 import { toast } from "react-toastify";
 
 interface AwardDetails {
-    award_code: string
     campus_code: string
     campus_name: string
-    event_code: string
-    event_name: string
     details: {
-        gold: number
-        silver: number
-        bronze: number
-        fourth: number
-        fifth: number
+        award: string
     }
     filename: string
 }
+
+const getAwardPriority = (award: string): number => {
+    switch (award) {
+      case '1': return 1; // Gold
+      case '2': return 2; // Silver
+      case '3': return 3; // Bronze
+      case '4': return 4; // 4th
+      case '5': return 5; // 5th
+      default: return 6;  // Any other award
+    }
+  };
 
 export default function SportsDetailsPage() {
     const [awardsDetails, setAwardDetails] = useState<AwardDetails[]>([]);
@@ -40,14 +44,12 @@ export default function SportsDetailsPage() {
                 },
                 spname: 'Select_Award_By_Code'
             };
-            console.log("Payload", JSON.stringify(requestBody))
             const response = await fetch('/api', { 
                 method: 'POST', 
                 headers: { 'Content-Type': 'application/json' }, 
                 body: JSON.stringify(requestBody)
             });
             const jsonData = await response.json();
-            console.log('API Response:', jsonData.data.result.event_name);
             const eventNameData = jsonData.data.result.event_name;
             setEventName(eventNameData)
             if (jsonData.status) {
@@ -55,25 +57,11 @@ export default function SportsDetailsPage() {
                     setAwardDetails([]); 
                     console.log('Error message:', jsonData.data.result.message);
                 } else {
-                    // const parsedData = jsonData.data.result.event_details.map((eventStr: string) => {
-                    //     try {
-                    //         return JSON.parse(eventStr);
-                    //     } catch (parseError) {
-                    //         console.error('Error parsing individual event:', parseError);
-                    //         return null;
-                    //     }
-                    // }).filter((event: AwardDetails | null): event is AwardDetails => event !== null);
-
-                    // if (Array.isArray(parsedData) && parsedData.length > 0) {
-                    //     setAwardDetails(parsedData);
-                    //     setEventName(parsedData[0].event_name || '');
-                    // } else {
-                    //     console.error('Event list is empty or not an array:', parsedData);
-                    //     setAwardDetails([]); 
-                    // }
                     const eventDetails = jsonData.data.result.event_details;
-                    setAwardDetails(eventDetails);
-                    setEventName(eventDetails[0].event_name || '');
+                    const sortedEventDetails = eventDetails.sort((a: AwardDetails, b: AwardDetails) => 
+                        getAwardPriority(a.details.award) - getAwardPriority(b.details.award)
+                    );
+                    setAwardDetails(sortedEventDetails);
                 }
             }
         } catch (error) {
@@ -110,11 +98,10 @@ export default function SportsDetailsPage() {
                             <thead className="bg-blue-900 text-white">
                                 <tr>
                                     <th className="py-3 px-4 text-left">Campus</th>
-                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" /></th>
+                                    {/* <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" /></th>
                                     <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-gray-400 mr-2" /></th>
-                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-700 mr-2" /></th>
-                                    <th className="py-3 px-4 text-center">4th</th>
-                                    <th className="py-3 px-4 text-center">5th</th>
+                                    <th className="py-3 px-4 text-center text-blue-900"><FontAwesomeIcon icon={faMedal} className="text-yellow-700 mr-2" /></th> */}
+                                    <th className="py-3 px-4 text-center">Award</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -122,11 +109,21 @@ export default function SportsDetailsPage() {
                                     awardsDetails.map((event, index) => (
                                         <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
                                             <td className="py-3 px-4">{event.campus_name}</td>
-                                            <td className="py-3 px-4 text-center">{event.details.gold}</td>
-                                            <td className="py-3 px-4 text-center">{event.details.silver}</td>
-                                            <td className="py-3 px-4 text-center">{event.details.bronze}</td>
-                                            <td className="py-3 px-4 text-center">{event.details.fourth}</td>
-                                            <td className="py-3 px-4 text-center">{event.details.fifth}</td>
+                                            <td className="py-3 px-4 text-center">
+                                                {event.details.award === '1' ? (
+                                                    <FontAwesomeIcon icon={faMedal} className="text-yellow-500 mr-2" />
+                                                ) : event.details.award === '2' ? (
+                                                    <FontAwesomeIcon icon={faMedal} className="text-gray-400 mr-2" />
+                                                ) : event.details.award === '3' ? (
+                                                    <FontAwesomeIcon icon={faMedal} className="text-yellow-700 mr-2" />
+                                                ) : event.details.award === '4' ? (
+                                                    '4TH'
+                                                ) : event.details.award === '5' ? (
+                                                    '5TH'
+                                                ) : (
+                                                    '-'
+                                                )}
+                                            </td>
                                         </tr>
                                     ))
                                 ) : (

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedal } from '@fortawesome/free-solid-svg-icons';
 import TopNavigation from "./components/clienttopnav";
+import Link from "next/link";
 
 interface RankingSportProps {
     campus_code: string;
@@ -201,7 +202,11 @@ export default function TabulationSummaryRanking() {
                             <tbody>
                                 {sportsEventRankingList.map((event, index) => (
                                     <tr key={index} className={index % 2 === 0 ? 'bg-blue-50' : 'bg-white'}>
-                                        <td className="py-3 px-4 font-medium text-blue-900">{event.campus_name}</td>
+                                        <td className="py-3 px-4 font-medium text-blue-900">
+                                            <Link href={`pages/${event.campus_code}`} className="hover:underline">
+                                                {event.campus_name}
+                                            </Link>
+                                        </td>
                                         <td className="py-3 px-4 text-center">{event.details.gold}</td>
                                         <td className="py-3 px-4 text-center">{event.details.silver}</td>
                                         <td className="py-3 px-4 text-center">{event.details.bronze}</td>
@@ -237,7 +242,11 @@ export default function TabulationSummaryRanking() {
                             <tbody>
                                 {litmusEventRankingList.map((event, index) => (
                                     <tr key={index} className={index % 2 === 0 ? 'bg-blue-50' : 'bg-white'}>
-                                        <td className="py-3 px-4 font-medium text-blue-900">{event.campus_name}</td>
+                                        <td className="py-3 px-4 font-medium text-blue-900">
+                                        <Link href={`pages/${event.campus_code}`} className="hover:underline">
+                                            {event.campus_name}
+                                        </Link>
+                                        </td>
                                         <td className="py-3 px-4 text-center">{event.details.gold}</td>
                                         <td className="py-3 px-4 text-center">{event.details.silver}</td>
                                         <td className="py-3 px-4 text-center">{event.details.bronze}</td>
