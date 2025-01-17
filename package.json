@@ -13,7 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "crypto-js": "^4.2.0",
-    "framer-motion": "^11.13.5",
+    "framer-motion": "^11.15.0",
     "lucide-react": "^0.468.0",
     "mysql2": "^3.11.5",
     "next": "15.0.4",
